@@ -29,7 +29,7 @@ Transform a JSON string to a map of key value pairs
 ```
 
 ``` text
-glossary.title                                                    example glossary
+glossary.title                                                   example glossary
 glossary.GlossDiv.title                                          S
 glossary.GlossDiv.GlossList.GlossEntry.GlossDef.para             A meta-markup language, used to create markup languages such as DocBook.
 glossary.GlossDiv.GlossList.GlossEntry.Acronym                   SGML
