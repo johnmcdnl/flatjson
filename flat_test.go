@@ -2,8 +2,6 @@ package flatjson
 
 import (
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestFlatten(t *testing.T) {
@@ -29,14 +27,26 @@ func TestFlatten(t *testing.T) {
 		{`{"key": [{"key": false}, {"key": true}]}`, "key.1.key", "true", false},
 		{`{"key" - "hello"}`, "", "", true},
 	}
+
+	//
+
 	for _, tt := range flagtests {
 		m, err := Flatten(tt.jsonStr)
 		if tt.hasErr {
-			assert.Error(t, err)
-			assert.Empty(t, m)
+			if err == nil {
+				t.Errorf("Expected to have an error")
+			}
+			if len(m) != 0 {
+				t.Errorf("m should be empty when error")
+			}
 			continue
 		}
-		assert.NoError(t, err)
-		assert.Equal(t, tt.eValue, m[tt.eKey], tt.eKey, m)
+		if err != nil {
+			t.Errorf("Should not be an error %v", err)
+		}
+
+		if tt.eValue != m[tt.eKey] {
+			t.Errorf("Expected %s but found %s", tt.eValue, m[tt.eKey])
+		}
 	}
 }
